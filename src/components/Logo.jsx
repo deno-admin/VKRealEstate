@@ -1,0 +1,46 @@
+import React from 'react';
+
+export function Logo({ height = 28, className = '', color = 'currentColor', showText = true }) {
+  return (
+    <div className={`brand-logo-container ${className}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+      {/* Official logo-vk SVG Mark */}
+      <svg 
+        viewBox="0 0 61.38 49.93" 
+        fill={color}
+        style={{ height: `${height}px`, width: 'auto', display: 'block', flexShrink: 0 }}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g id="Layer_1-2" data-name="Layer 1">
+          <g>
+            <path d="M57.26.12c-2.37,5.85-4.87,11.69-7.49,17.49-.08.19-.17.38-.26.57-2.72,6.31-4.7,10.88-5.08,11.88-.04.11-.13.35-.3.6-2.2,5.4-4.51,10.78-6.93,16.14-.08.19-.17.38-.25.57-.22.51-.44,1.01-.64,1.49-.01.03-.03.05-.03.07-.48.03-.77.08-1.06.08-4.44,0-8.87-.02-13.31.02-.42,0-.72-.09-.98-.35-.18-.17-.34-.42-.49-.77C13.79,32.43,7.13,16.96.48,1.49c-.16-.38-.28-.8-.48-1.35C.42.09.71.03,1.01.03c4.44-.01,8.88.02,13.32-.03.75,0,1.15.32,1.53,1.21,4.06,9.53,8.16,19.03,12.25,28.53.13.31.29.6.5,1.02,0,0,0,.02.01.03.13-.3.26-.6.39-.9,1.18-2.73,2.32-5.37,3.45-8.02,2.96-6.89,5.93-13.77,8.87-20.67.32-.74.63-1.19,1.35-1.18,4.54.04,9.08.01,13.62.01.24,0,.48.04.95.09Z" />
+            <path d="M47.73,22.17c4.55,9.22,9.1,18.44,13.65,27.66-.52.03-.85.07-1.18.07-4.41,0-8.82-.03-13.22.03-.42,0-.74-.08-1.01-.25-.38-.25-.6-.63-.71-.85-.04-.08-.07-.15-.07-.16-.19-.44-4.17-8.52-12.99-26.3,5.18-.07,10.35-.13,15.53-.2Z" />
+          </g>
+        </g>
+      </svg>
+
+      {/* Brand Typography */}
+      {showText && (
+        <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.05' }}>
+          <span style={{ 
+            fontFamily: 'var(--font-sans)', 
+            fontWeight: '700', 
+            fontSize: `${height * 0.42}px`, 
+            letterSpacing: '1.5px',
+            color: color === 'currentColor' ? 'inherit' : color
+          }}>
+            REAL ESTATE
+          </span>
+          <span style={{ 
+            fontFamily: 'var(--font-sans)', 
+            fontWeight: '600', 
+            fontSize: `${height * 0.26}px`, 
+            letterSpacing: '1.2px', 
+            color: '#737373' 
+          }}>
+            TAMIL NADU
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
