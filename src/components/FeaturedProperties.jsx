@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Bed, Bath, Maximize2, ShieldCheck, Heart } from 'lucide-react';
+import { ArrowRight, Bed, Bath, Square, ShieldCheck, Heart, MapPin } from 'lucide-react';
 import { PROPERTIES } from '../data/properties';
 
 export function FeaturedProperties({ onSelectProperty }) {
+  const [favorites, setFavorites] = useState([]);
   // Select 6 prime showcase properties for Home Page
   const featured = PROPERTIES.slice(0, 6);
+
+  const toggleFavorite = (id, e) => {
+    e.stopPropagation();
+    setFavorites(prev => 
+      prev.includes(id) ? prev.filter(fId => fId !== id) : [...prev, id]
+    );
+  };
 
   return (
     <section id="featured-properties" className="section">
@@ -13,7 +21,7 @@ export function FeaturedProperties({ onSelectProperty }) {
         {/* Section Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px', flexWrap: 'wrap', gap: '20px' }}>
           <div>
-            <div className="section-label">Curated Tamil Nadu Portfolio</div>
+            <span className="section-badge">Curated Tamil Nadu Portfolio</span>
             <h2 className="section-title">
               Signature Estates & <span className="em">Penthouses</span>
             </h2>
@@ -30,73 +38,68 @@ export function FeaturedProperties({ onSelectProperty }) {
         </div>
 
         {/* 3-Column Luxury Property Grid */}
-        <div className="properties-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-          gap: '32px'
-        }}>
-          {featured.map(property => (
-            <div 
-              key={property.id} 
-              className="property-card"
-              onClick={() => onSelectProperty(property)}
-              style={{ cursor: 'pointer' }}
-            >
-              {/* Image & Badges */}
-              <div className="property-card-image-wrap">
-                <img src={property.heroImage} alt={property.title} loading="lazy" />
-                
-                <div className="property-badges">
-                  <span className="badge badge-dark">{property.badge}</span>
-                  {property.tnreraVerified && (
-                    <span className="badge badge-tnrera">
-                      <ShieldCheck size={12} />
-                      TNRERA
-                    </span>
-                  )}
-                </div>
-
-                <button 
-                  className="property-fav-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  aria-label="Save Property"
-                >
-                  <Heart size={16} />
-                </button>
-              </div>
-
-              {/* Property Details */}
-              <div className="property-card-body">
-                <div className="property-card-price-row">
-                  <span className="property-card-price">{property.priceFormatted}</span>
-                </div>
-
-                <h3 className="property-card-title">{property.title}</h3>
-                
-                <div className="property-card-location">
-                  {property.locality}, {property.city}
-                </div>
-
-                {/* Specs */}
-                <div className="property-card-specs">
-                  <div className="spec-item">
-                    <Bed size={15} />
-                    <span>{property.bhk} Beds</span>
+        <div className="properties-grid">
+          {featured.map(property => {
+            const isFav = favorites.includes(property.id);
+            return (
+              <div 
+                key={property.id} 
+                className="property-card"
+                onClick={() => onSelectProperty(property)}
+              >
+                {/* Property Media */}
+                <div className="property-media">
+                  <img src={property.heroImage} alt={property.title} loading="lazy" />
+                  
+                  <div className="property-badges-top">
+                    {property.tag && (
+                      <span className="badge badge-dark">{property.tag}</span>
+                    )}
+                    {property.reraId && (
+                      <span className="badge badge-rera">
+                        <ShieldCheck size={12} />
+                        TNRERA
+                      </span>
+                    )}
                   </div>
-                  <div className="spec-item">
-                    <Bath size={15} />
-                    <span>{property.baths} Baths</span>
+
+                  <button 
+                    className={`property-fav-btn ${isFav ? 'favorited' : ''}`}
+                    onClick={(e) => toggleFavorite(property.id, e)}
+                    aria-label="Save Property"
+                  >
+                    <Heart size={16} fill={isFav ? '#ef4444' : 'none'} color={isFav ? '#ef4444' : 'currentColor'} />
+                  </button>
+                </div>
+
+                {/* Property Info */}
+                <div className="property-info">
+                  <div className="property-price">{property.priceFormatted}</div>
+                  <h3 className="property-title">{property.title}</h3>
+                  <div className="property-location">
+                    <MapPin size={14} />
+                    <span>{property.locality}, {property.city}</span>
                   </div>
-                  <div className="spec-item">
-                    <Maximize2 size={15} />
-                    <span>{property.sqft.toLocaleString()} sq.ft</span>
+
+                  {/* Specs Row */}
+                  <div className="property-specs">
+                    <div className="spec-item">
+                      <Bed size={15} />
+                      <span>{property.bhk} Beds</span>
+                    </div>
+                    <div className="spec-item">
+                      <Bath size={15} />
+                      <span>{property.baths} Baths</span>
+                    </div>
+                    <div className="spec-item">
+                      <Square size={15} />
+                      <span>{property.sqft.toLocaleString()} sq.ft</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Bottom Callout to Full Search Page */}
