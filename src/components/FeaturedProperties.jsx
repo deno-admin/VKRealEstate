@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Bed, Bath, Square, ShieldCheck, Heart, MapPin } from 'lucide-react';
+import { ArrowRight, Bed, Bath, Square, ShieldCheck, Heart, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PROPERTIES } from '../data/properties';
 
 export function FeaturedProperties({ onSelectProperty }) {
   const [favorites, setFavorites] = useState([]);
-  // Select 6 prime showcase properties for Home Page
-  const featured = PROPERTIES.slice(0, 6);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const trackRef = useRef(null);
 
   const toggleFavorite = (id, e) => {
     e.stopPropagation();
@@ -15,11 +16,42 @@ export function FeaturedProperties({ onSelectProperty }) {
     );
   };
 
+  const updateScrollButtons = () => {
+    if (trackRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = trackRef.current;
+      setCanScrollLeft(scrollLeft > 10);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (track) {
+      track.addEventListener('scroll', updateScrollButtons);
+      window.addEventListener('resize', updateScrollButtons);
+      updateScrollButtons();
+      return () => {
+        track.removeEventListener('scroll', updateScrollButtons);
+        window.removeEventListener('resize', updateScrollButtons);
+      };
+    }
+  }, []);
+
+  const scroll = (direction) => {
+    if (trackRef.current) {
+      const scrollAmount = 408; // card width (380) + gap (28)
+      trackRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <section id="featured-properties" className="section">
       <div className="container">
         {/* Section Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '48px', flexWrap: 'wrap', gap: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '36px', flexWrap: 'wrap', gap: '20px' }}>
           <div>
             <span className="section-badge">Curated Tamil Nadu Portfolio</span>
             <h2 className="section-title">
@@ -27,19 +59,61 @@ export function FeaturedProperties({ onSelectProperty }) {
             </h2>
           </div>
 
-          <Link 
-            to="/search" 
-            className="btn-pill btn-pill-primary btn-icon-slide"
-            style={{ padding: '12px 24px', fontSize: '0.9rem' }}
-          >
-            <span>Search All Properties</span>
-            <ArrowRight size={16} />
-          </Link>
+          {/* Carousel Navigation Buttons + Direct Search Link */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button
+                onClick={() => scroll('left')}
+                disabled={!canScrollLeft}
+                className="btn-pill btn-pill-secondary"
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  padding: 0,
+                  borderRadius: '50%',
+                  opacity: canScrollLeft ? 1 : 0.4,
+                  cursor: canScrollLeft ? 'pointer' : 'not-allowed'
+                }}
+                aria-label="Previous Properties"
+              >
+                <ChevronLeft size={20} />
+              </button>
+
+              <button
+                onClick={() => scroll('right')}
+                disabled={!canScrollRight}
+                className="btn-pill btn-pill-secondary"
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  padding: 0,
+                  borderRadius: '50%',
+                  opacity: canScrollRight ? 1 : 0.4,
+                  cursor: canScrollRight ? 'pointer' : 'not-allowed'
+                }}
+                aria-label="Next Properties"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+
+            <Link 
+              to="/search" 
+              className="btn-pill btn-pill-primary btn-icon-slide"
+              style={{ padding: '12px 24px', fontSize: '0.9rem' }}
+            >
+              <span>Search All Properties</span>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
 
-        {/* 3-Column Luxury Property Grid */}
-        <div className="properties-grid">
-          {featured.map(property => {
+        {/* Horizontal Properties Carousel */}
+        <div 
+          ref={trackRef}
+          className="properties-carousel-track"
+        >
+          {PROPERTIES.map(property => {
             const isFav = favorites.includes(property.id);
             return (
               <div 
@@ -100,31 +174,6 @@ export function FeaturedProperties({ onSelectProperty }) {
               </div>
             );
           })}
-        </div>
-
-        {/* Bottom Callout to Full Search Page */}
-        <div style={{
-          marginTop: '56px',
-          textAlign: 'center',
-          padding: '40px',
-          backgroundColor: 'var(--bg-secondary)',
-          borderRadius: '24px',
-          border: '1px solid rgba(0,0,0,0.05)'
-        }}>
-          <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '10px' }}>
-            Looking for something specific across Tamil Nadu?
-          </h3>
-          <p style={{ color: '#555555', maxWidth: '600px', margin: '0 auto 24px auto', fontSize: '0.95rem' }}>
-            Explore verified coastal plots, beachfront villas, central Chennai penthouses, and Nilgiris tea estates on our dedicated search portal.
-          </p>
-          <Link 
-            to="/search" 
-            className="btn-pill btn-pill-primary btn-icon-slide"
-            style={{ padding: '14px 32px' }}
-          >
-            <span>Open Property Search Engine</span>
-            <ArrowRight size={16} />
-          </Link>
         </div>
       </div>
     </section>
