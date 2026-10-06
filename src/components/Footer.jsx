@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Mail, Phone, MapPin, Check } from 'lucide-react';
 import { Logo } from './Logo';
 
-export function Footer({ onOpenContact, onNavigate }) {
+export function Footer({ onOpenContact }) {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -17,18 +18,11 @@ export function Footer({ onOpenContact, onNavigate }) {
     }
   };
 
-  const handlePageNav = (page) => {
-    if (onNavigate) {
-      onNavigate(page);
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <footer id="footer" className="site-footer">
       <div className="container">
         {/* Top Grid */}
-        <div className="footer-top">
+        <div className="footer-top" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '48px' }}>
           {/* Col 1: Brand & Newsletter */}
           <div className="footer-brand">
             <div style={{ marginBottom: '16px' }}>
@@ -67,37 +61,25 @@ export function Footer({ onOpenContact, onNavigate }) {
             )}
           </div>
 
-          {/* Col 2: Navigation */}
-          <div className="footer-col">
-            <h4>Explore Tamil Nadu</h4>
-            <ul className="footer-links">
-              <li><a href="#search" onClick={(e) => { e.preventDefault(); handlePageNav('search'); }}>Search All Properties</a></li>
-              <li><a href="#search" onClick={(e) => { e.preventDefault(); handlePageNav('search'); }}>ECR Coastal Villas</a></li>
-              <li><a href="#search" onClick={(e) => { e.preventDefault(); handlePageNav('search'); }}>Poes Garden Penthouses</a></li>
-              <li><a href="#search" onClick={(e) => { e.preventDefault(); handlePageNav('search'); }}>Coimbatore Race Course</a></li>
-              <li><a href="#search" onClick={(e) => { e.preventDefault(); handlePageNav('search'); }}>Nilgiris Tea Estates</a></li>
-              <li><a href="#about" onClick={(e) => { e.preventDefault(); handlePageNav('about'); }}>About VK Real Estate</a></li>
-            </ul>
-          </div>
-
-          {/* Col 3: Services & Legal */}
+          {/* Col 2: Advisory & Legal */}
           <div className="footer-col">
             <h4>Advisory & Legal</h4>
             <ul className="footer-links">
-              <li><a href="#calculators" onClick={(e) => { e.preventDefault(); handlePageNav('home'); }}>TN Stamp Duty (7%)</a></li>
-              <li><a href="#calculators" onClick={(e) => { e.preventDefault(); handlePageNav('home'); }}>Home Loan EMI Tool</a></li>
+              <li><Link to="/search">Search All Properties</Link></li>
+              <li><Link to="/about">About VK Real Estate</Link></li>
+              <li><a href="#calculators" onClick={(e) => { e.preventDefault(); onOpenContact('TN Stamp Duty Inquiry'); }}>TN Stamp Duty (7%)</a></li>
+              <li><a href="#calculators" onClick={(e) => { e.preventDefault(); onOpenContact('Home Loan EMI Inquiry'); }}>Home Loan EMI Tool</a></li>
               <li><a href="#nri-desk" onClick={(e) => { e.preventDefault(); onOpenContact('NRI Concierge Inquiry'); }}>NRI Concierge Desk</a></li>
               <li><a href="#for-agents" onClick={(e) => { e.preventDefault(); onOpenContact('Agent Equity Network Application'); }}>Agent Equity Network</a></li>
-              <li><a href="#about" onClick={(e) => { e.preventDefault(); handlePageNav('about'); }}>TNRERA Standards</a></li>
-              <li><a href="#about" onClick={(e) => { e.preventDefault(); handlePageNav('about'); }}>About Our Team</a></li>
+              <li><Link to="/about">TNRERA Standards</Link></li>
             </ul>
           </div>
 
-          {/* Col 4: Offices & Contact */}
+          {/* Col 3: Headquarters & Contact (Chennai only) */}
           <div className="footer-col">
             <h4>Headquarters</h4>
             <div style={{ color: '#a1a1aa', fontSize: '0.875rem', lineHeight: '1.6', marginBottom: '16px' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '16px' }}>
                 <MapPin size={16} style={{ marginTop: '3px', flexShrink: 0 }} color="#c5a059" />
                 <span>
                   <strong>Chennai HQ:</strong><br />
@@ -107,23 +89,14 @@ export function Footer({ onOpenContact, onNavigate }) {
                 </span>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '14px' }}>
-                <MapPin size={16} style={{ marginTop: '3px', flexShrink: 0 }} color="#c5a059" />
-                <span>
-                  <strong>Coimbatore Branch:</strong><br />
-                  Tristar Towers, Race Course Road,<br />
-                  Coimbatore, Tamil Nadu 641018
-                </span>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                 <Mail size={16} color="#c5a059" />
                 <a href="mailto:concierge@vkrealestate.in" style={{ color: '#ffffff' }}>concierge@vkrealestate.in</a>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <Phone size={16} color="#c5a059" />
-                <a href="tel:+919840122890" style={{ color: '#ffffff' }}>+91 98401 22890</a>
+                <a href="tel:999999999" style={{ color: '#ffffff', fontWeight: '600' }}>999999999</a>
               </div>
             </div>
           </div>

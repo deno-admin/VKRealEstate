@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, MessageSquare, CheckCircle, Key } from 'lucide-react';
 
-export function RewiredProcess({ onStartSearch }) {
+export function RewiredProcess() {
   const steps = [
     {
       num: "01",
@@ -33,14 +34,14 @@ export function RewiredProcess({ onStartSearch }) {
               Real Estate, <span className="em">Rewired.</span>
             </h2>
 
-            <button 
-              onClick={onStartSearch}
+            <Link 
+              to="/search"
               className="btn-pill btn-pill-primary btn-icon-slide"
-              style={{ padding: '16px 36px', fontSize: '1rem' }}
+              style={{ padding: '16px 36px', fontSize: '1rem', display: 'inline-flex' }}
             >
               <span>Start Your Search</span>
               <ArrowRight size={18} />
-            </button>
+            </Link>
           </div>
 
           {/* Right Column Steps */}

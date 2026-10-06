@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Logo } from './Logo';
 
-export function Header({ currentPage, onNavigate, onOpenContact }) {
+export function Header({ onOpenContact }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,44 +21,50 @@ export function Header({ currentPage, onNavigate, onOpenContact }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNav = (page) => {
+  const handleNav = (path) => {
     setMobileMenuOpen(false);
-    onNavigate(page);
+    navigate(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const isCurrent = (path) => {
+    if (path === '/' && location.pathname === '/') return true;
+    if (path !== '/' && location.pathname.startsWith(path)) return true;
+    return false;
   };
 
   return (
     <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Brand Logo with Official SVG */}
-        <a 
-          href="#" 
-          onClick={(e) => { e.preventDefault(); handleNav('home'); }}
+        <Link 
+          to="/"
+          onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           className="brand-logo"
         >
           <Logo height={30} />
-        </a>
+        </Link>
 
         {/* Right Side Navigation & Action Button */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(1rem, 2.5vw, 2rem)' }}>
-          {/* Search and About Links moved to right */}
+          {/* Search and About direct URL Links on right */}
           <nav className="nav-menu" style={{ display: 'flex', alignItems: 'center', gap: '1.75rem' }}>
-            <button 
-              onClick={() => handleNav('search')} 
-              className={`nav-link ${currentPage === 'search' ? 'active' : ''}`}
+            <Link 
+              to="/search"
+              className={`nav-link ${isCurrent('/search') ? 'active' : ''}`}
             >
               Search
-            </button>
+            </Link>
             
-            <button 
-              onClick={() => handleNav('about')} 
-              className={`nav-link ${currentPage === 'about' ? 'active' : ''}`}
+            <Link 
+              to="/about"
+              className={`nav-link ${isCurrent('/about') ? 'active' : ''}`}
             >
               About
-            </button>
+            </Link>
           </nav>
 
-          {/* Slightly reduced size for Book Consultation button */}
+          {/* Book Consultation button */}
           <button 
             onClick={() => onOpenContact('General Advisory Consultation')} 
             className="btn-pill btn-pill-primary btn-icon-slide"
@@ -99,20 +108,20 @@ export function Header({ currentPage, onNavigate, onOpenContact }) {
           overflowY: 'auto'
         }}>
           <button 
-            onClick={() => handleNav('home')} 
-            style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: currentPage === 'home' ? '800' : '600', padding: '12px 0' }}
+            onClick={() => handleNav('/')} 
+            style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: isCurrent('/') ? '800' : '600', padding: '12px 0' }}
           >
             Home
           </button>
           <button 
-            onClick={() => handleNav('search')} 
-            style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: currentPage === 'search' ? '800' : '600', padding: '12px 0' }}
+            onClick={() => handleNav('/search')} 
+            style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: isCurrent('/search') ? '800' : '600', padding: '12px 0' }}
           >
             Search Properties
           </button>
           <button 
-            onClick={() => handleNav('about')} 
-            style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: currentPage === 'about' ? '800' : '600', padding: '12px 0' }}
+            onClick={() => handleNav('/about')} 
+            style={{ textAlign: 'left', fontSize: '1.25rem', fontWeight: isCurrent('/about') ? '800' : '600', padding: '12px 0' }}
           >
             About VK
           </button>

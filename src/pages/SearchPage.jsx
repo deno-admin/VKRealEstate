@@ -1,15 +1,25 @@
-import React, { useState, useMemo } from 'react';
-import { Search, MapPin, Bed, Bath, Square, ShieldCheck, Heart, SlidersHorizontal, ArrowUpDown } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Search, MapPin, Bed, Bath, Square, ShieldCheck, Heart } from 'lucide-react';
 import { PROPERTIES, LOCALITIES, PROPERTY_TYPES } from '../data/properties';
 
-export function SearchPage({ onSelectProperty, initialLocality = 'All Tamil Nadu' }) {
-  const [selectedLocality, setSelectedLocality] = useState(initialLocality);
+export function SearchPage({ onSelectProperty }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlLocality = searchParams.get('locality');
+
+  const [selectedLocality, setSelectedLocality] = useState(urlLocality || 'All Tamil Nadu');
   const [selectedType, setSelectedType] = useState('All Types');
   const [selectedBHK, setSelectedBHK] = useState('All');
   const [maxPrice, setMaxPrice] = useState(40);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [sortBy, setSortBy] = useState('price-desc');
   const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    if (urlLocality) {
+      setSelectedLocality(urlLocality);
+    }
+  }, [urlLocality]);
 
   const toggleFavorite = (id, e) => {
     e.stopPropagation();
@@ -214,6 +224,7 @@ export function SearchPage({ onSelectProperty, initialLocality = 'All Tamil Nadu
                   setSelectedBHK('All');
                   setMaxPrice(40);
                   setSearchQuery('');
+                  setSearchParams({});
                 }}
                 style={{ fontSize: '0.875rem', color: '#0a0a0a', fontWeight: '600', textDecoration: 'underline' }}
               >
@@ -233,14 +244,16 @@ export function SearchPage({ onSelectProperty, initialLocality = 'All Tamil Nadu
                     className="property-card"
                     onClick={() => onSelectProperty(property)}
                   >
-                    <div className="property-media">
+                    <div className="property-card-image-wrap">
                       <img src={property.heroImage} alt={property.title} loading="lazy" />
                       
-                      <div className="property-badges-top">
-                        <span className="badge badge-dark">{property.tag}</span>
-                        <span className="badge badge-rera">
-                          <ShieldCheck size={12} /> TNRERA
-                        </span>
+                      <div className="property-badges">
+                        <span className="badge badge-dark">{property.badge}</span>
+                        {property.tnreraVerified && (
+                          <span className="badge badge-tnrera">
+                            <ShieldCheck size={12} /> TNRERA
+                          </span>
+                        )}
                       </div>
 
                       <button 
@@ -248,30 +261,31 @@ export function SearchPage({ onSelectProperty, initialLocality = 'All Tamil Nadu
                         onClick={(e) => toggleFavorite(property.id, e)}
                         aria-label="Save Property"
                       >
-                        <Heart size={18} fill={isFav ? '#ef4444' : 'none'} />
+                        <Heart size={16} fill={isFav ? '#ef4444' : 'none'} color={isFav ? '#ef4444' : 'currentColor'} />
                       </button>
                     </div>
 
-                    <div className="property-info">
-                      <div className="property-price">{property.priceFormatted}</div>
-                      <h3 className="property-title">{property.title}</h3>
-                      <div className="property-location">
-                        <MapPin size={14} />
-                        <span>{property.locality}, {property.city}</span>
+                    <div className="property-card-body">
+                      <div className="property-card-price-row">
+                        <span className="property-card-price">{property.priceFormatted}</span>
+                      </div>
+                      <h3 className="property-card-title">{property.title}</h3>
+                      <div className="property-card-location">
+                        {property.locality}, {property.city}
                       </div>
 
-                      <div className="property-specs">
+                      <div className="property-card-specs">
                         <div className="spec-item">
-                          <Bed size={16} />
+                          <Bed size={15} />
                           <span>{property.bhk} Beds</span>
                         </div>
                         <div className="spec-item">
-                          <Bath size={16} />
+                          <Bath size={15} />
                           <span>{property.baths} Baths</span>
                         </div>
                         <div className="spec-item">
-                          <Square size={16} />
-                          <span>{property.sqft} sq.ft</span>
+                          <Square size={15} />
+                          <span>{property.sqft.toLocaleString()} sq.ft</span>
                         </div>
                       </div>
                     </div>
@@ -290,6 +304,7 @@ export function SearchPage({ onSelectProperty, initialLocality = 'All Tamil Nadu
                   setSelectedBHK('All');
                   setMaxPrice(40);
                   setSearchQuery('');
+                  setSearchParams({});
                 }}
                 className="btn-pill btn-pill-primary"
               >

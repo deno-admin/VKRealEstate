@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import houseHeroImg from '../assets/house-hero.png';
 import cloudImg from '../assets/cloud.webp';
 
-export function Hero({ onOpenSearch }) {
+export function Hero() {
   return (
     <section id="hero" className="hero-root">
       {/* Sky & Lighting Background */}
@@ -33,13 +34,13 @@ export function Hero({ onOpenSearch }) {
         </p>
 
         <div className="hero-cta-wrapper">
-          <button 
-            onClick={onOpenSearch}
+          <Link 
+            to="/search"
             className="btn-pill btn-pill-primary btn-icon-slide hero-find-btn"
           >
             <span>Find Properties</span>
             <ArrowRight size={16} />
-          </button>
+          </Link>
         </div>
       </div>
 

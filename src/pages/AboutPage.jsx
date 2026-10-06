@@ -1,6 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Award, Building, Users, MapPin, ArrowRight, CheckCircle2, Phone, Mail } from 'lucide-react';
-import { AGENTS } from '../data/agents';
+import { ShieldCheck, Award, Building, Users, MapPin, ArrowRight } from 'lucide-react';
 
 export function AboutPage({ onOpenContact }) {
   return (
@@ -119,42 +118,7 @@ export function AboutPage({ onOpenContact }) {
         </div>
       </section>
 
-      {/* 4. Leadership & Advisors Showcase */}
-      <section className="section section-secondary">
-        <div className="container">
-          <div style={{ maxWidth: '750px', marginBottom: '48px' }}>
-            <span className="section-badge">Leadership</span>
-            <h2 className="section-title">
-              Our Advisory <span className="em">Partners</span>
-            </h2>
-            <p style={{ fontSize: '1.1rem', color: '#575757', marginTop: '12px' }}>
-              Meet the senior partners leading our luxury desks in Chennai, Coimbatore, and the Nilgiris.
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '28px' }}>
-            {AGENTS.map(agent => (
-              <div key={agent.id} style={{ backgroundColor: '#ffffff', borderRadius: '24px', overflow: 'hidden', border: '1px solid var(--border-light)' }}>
-                <div style={{ height: '260px', overflow: 'hidden' }}>
-                  <img src={agent.avatar} alt={agent.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ padding: '24px' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: '700', color: '#c5a059', textTransform: 'uppercase', marginBottom: '4px' }}>
-                    {agent.experience}
-                  </div>
-                  <h3 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '4px' }}>{agent.name}</h3>
-                  <div style={{ fontSize: '0.875rem', color: '#737373', marginBottom: '12px' }}>{agent.role}</div>
-                  <p style={{ fontSize: '0.875rem', color: '#4a4a4a', lineHeight: '1.5' }}>
-                    {agent.bio}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Offices & Consultation CTA */}
+      {/* 4. Offices & Consultation CTA */}
       <section className="section section-dark">
         <div className="container">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px', alignItems: 'center' }}>
