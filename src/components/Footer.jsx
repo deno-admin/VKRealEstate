@@ -22,9 +22,9 @@ export function Footer({ onOpenContact }) {
     <footer id="footer" className="site-footer">
       <div className="container">
         {/* Top Grid */}
-        <div className="footer-top" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '48px' }}>
-          {/* Col 1: Brand & Newsletter */}
-          <div className="footer-brand">
+        <div className="footer-top" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '64px' }}>
+          {/* Col Left: Brand & Newsletter */}
+          <div className="footer-brand" style={{ maxWidth: '440px', flex: '1 1 340px' }}>
             <div style={{ marginBottom: '16px' }}>
               <Logo height={32} color="#ffffff" />
             </div>
@@ -61,42 +61,45 @@ export function Footer({ onOpenContact }) {
             )}
           </div>
 
-          {/* Col 2: Advisory & Legal */}
-          <div className="footer-col">
-            <h4>Advisory & Legal</h4>
-            <ul className="footer-links">
-              <li><Link to="/search">Search All Properties</Link></li>
-              <li><Link to="/about">About VK Real Estate</Link></li>
-              <li><a href="#calculators" onClick={(e) => { e.preventDefault(); onOpenContact('TN Stamp Duty Inquiry'); }}>TN Stamp Duty (7%)</a></li>
-              <li><a href="#calculators" onClick={(e) => { e.preventDefault(); onOpenContact('Home Loan EMI Inquiry'); }}>Home Loan EMI Tool</a></li>
-              <li><a href="#nri-desk" onClick={(e) => { e.preventDefault(); onOpenContact('NRI Concierge Inquiry'); }}>NRI Concierge Desk</a></li>
-              <li><a href="#for-agents" onClick={(e) => { e.preventDefault(); onOpenContact('Agent Equity Network Application'); }}>Agent Equity Network</a></li>
-              <li><Link to="/about">TNRERA Standards</Link></li>
-            </ul>
-          </div>
+          {/* Col Right: Grouped Advisory & Legal + Headquarters */}
+          <div style={{ display: 'flex', gap: 'clamp(36px, 5vw, 64px)', flexWrap: 'wrap', flex: '1 1 auto', justifyContent: 'flex-end' }}>
+            {/* Advisory & Legal */}
+            <div className="footer-col" style={{ minWidth: '190px' }}>
+              <h4>Advisory & Legal</h4>
+              <ul className="footer-links">
+                <li><Link to="/search">Search All Properties</Link></li>
+                <li><Link to="/about">About VK Real Estate</Link></li>
+                <li><a href="#calculators" onClick={(e) => { e.preventDefault(); onOpenContact('TN Stamp Duty Inquiry'); }}>TN Stamp Duty (7%)</a></li>
+                <li><a href="#calculators" onClick={(e) => { e.preventDefault(); onOpenContact('Home Loan EMI Inquiry'); }}>Home Loan EMI Tool</a></li>
+                <li><a href="#nri-desk" onClick={(e) => { e.preventDefault(); onOpenContact('NRI Concierge Inquiry'); }}>NRI Concierge Desk</a></li>
+                <li><a href="#for-agents" onClick={(e) => { e.preventDefault(); onOpenContact('Agent Equity Network Application'); }}>Agent Equity Network</a></li>
+                <li><Link to="/about">TNRERA Standards</Link></li>
+              </ul>
+            </div>
 
-          {/* Col 3: Headquarters & Contact (Chennai only) */}
-          <div className="footer-col">
-            <h4>Headquarters</h4>
-            <div style={{ color: '#a1a1aa', fontSize: '0.875rem', lineHeight: '1.6', marginBottom: '16px' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '16px' }}>
-                <MapPin size={16} style={{ marginTop: '3px', flexShrink: 0 }} color="#c5a059" />
-                <span>
-                  <strong>Chennai HQ:</strong><br />
-                  Level 8, Prestige Palladium Bayan,<br />
-                  Greams Road, Nungambakkam,<br />
-                  Chennai, Tamil Nadu 600006
-                </span>
-              </div>
+            {/* Headquarters */}
+            <div className="footer-col" style={{ minWidth: '240px', maxWidth: '320px' }}>
+              <h4>Headquarters</h4>
+              <div style={{ color: '#a1a1aa', fontSize: '0.875rem', lineHeight: '1.6', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '16px' }}>
+                  <MapPin size={16} style={{ marginTop: '3px', flexShrink: 0 }} color="#c5a059" />
+                  <span>
+                    <strong>Chennai HQ:</strong><br />
+                    Level 8, Prestige Palladium Bayan,<br />
+                    Greams Road, Nungambakkam,<br />
+                    Chennai, Tamil Nadu 600006
+                  </span>
+                </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                <Mail size={16} color="#c5a059" />
-                <a href="mailto:concierge@vkrealestate.in" style={{ color: '#ffffff' }}>concierge@vkrealestate.in</a>
-              </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                  <Mail size={16} color="#c5a059" />
+                  <a href="mailto:concierge@vkrealestate.in" style={{ color: '#ffffff' }}>concierge@vkrealestate.in</a>
+                </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Phone size={16} color="#c5a059" />
-                <a href="tel:999999999" style={{ color: '#ffffff', fontWeight: '600' }}>999999999</a>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Phone size={16} color="#c5a059" />
+                  <a href="tel:999999999" style={{ color: '#ffffff', fontWeight: '600' }}>999999999</a>
+                </div>
               </div>
             </div>
           </div>
