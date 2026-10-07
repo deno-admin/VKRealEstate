@@ -51,7 +51,7 @@ export function FeaturedProperties({ onSelectProperty }) {
     <section id="featured-properties" className="section">
       <div className="container">
         {/* Section Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '36px', flexWrap: 'wrap', gap: '20px' }}>
+        <div className="reveal-up" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '36px', flexWrap: 'wrap', gap: '20px' }}>
           <div>
             <span className="section-badge">Curated Tamil Nadu Portfolio</span>
             <h2 className="section-title">
@@ -111,7 +111,7 @@ export function FeaturedProperties({ onSelectProperty }) {
         {/* Horizontal Properties Carousel */}
         <div 
           ref={trackRef}
-          className="properties-carousel-track"
+          className="properties-carousel-track reveal-up"
         >
           {PROPERTIES.map(property => {
             const isFav = favorites.includes(property.id);

@@ -34,7 +34,7 @@ export function FinancialTools({ onOpenContact }) {
     <section id="calculators" className="section">
       <div className="container">
         {/* Header */}
-        <div style={{ maxWidth: '800px', marginBottom: '40px' }}>
+        <div className="reveal-up" style={{ maxWidth: '800px', marginBottom: '40px' }}>
           <span className="section-badge">Financial Intelligence</span>
           <h2 className="section-title">
             Tamil Nadu Property <span className="em">& Tax Calculators</span>
@@ -45,7 +45,7 @@ export function FinancialTools({ onOpenContact }) {
         </div>
 
         {/* Tab Switcher */}
-        <div style={{ display: 'inline-flex', padding: '6px', backgroundColor: '#f5f5f7', borderRadius: '9999px', marginBottom: '32px' }}>
+        <div className="reveal-up" style={{ display: 'inline-flex', padding: '6px', backgroundColor: '#f5f5f7', borderRadius: '9999px', marginBottom: '32px' }}>
           <button 
             onClick={() => setActiveTab('stampDuty')}
             className={`btn-pill ${activeTab === 'stampDuty' ? 'btn-pill-primary' : ''}`}
@@ -63,7 +63,7 @@ export function FinancialTools({ onOpenContact }) {
         </div>
 
         {/* Main Calculator Card */}
-        <div className="calculator-card">
+        <div className="calculator-card reveal-up">
           {activeTab === 'stampDuty' ? (
             <div className="calc-grid">
               {/* Left Controls */}

@@ -7,7 +7,7 @@ export function NeighborhoodGuide({ onSelectLocality }) {
     <section id="neighborhoods" className="section section-secondary">
       <div className="container">
         {/* Section Header */}
-        <div style={{ maxWidth: '800px', marginBottom: '48px' }}>
+        <div className="reveal-up" style={{ maxWidth: '800px', marginBottom: '48px' }}>
           <span className="section-badge">Tamil Nadu Area Intelligence</span>
           <h2 className="section-title">
             Prime Enclaves & <span className="em">Living Corridors</span>
@@ -19,10 +19,11 @@ export function NeighborhoodGuide({ onSelectLocality }) {
 
         {/* Neighborhoods Grid */}
         <div className="neighborhoods-grid">
-          {NEIGHBORHOODS.map(hood => (
+          {NEIGHBORHOODS.map((hood, index) => (
             <div 
               key={hood.id} 
-              className="neighborhood-card"
+              className="neighborhood-card reveal-up"
+              style={{ transitionDelay: `${index * 0.1}s` }}
               onClick={() => {
                 onSelectLocality(hood.name);
                 const target = document.getElementById('properties');

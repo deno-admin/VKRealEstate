@@ -12,7 +12,7 @@ export function OutroCTA({ onGetStarted }) {
         />
       </div>
 
-      <div className="container outro-content">
+      <div className="container outro-content reveal-up">
         <h2 className="outro-title">
           Find You. <span className="em" style={{ color: '#d4d4d8' }}>We’ll Help You Get There.</span>
         </h2>

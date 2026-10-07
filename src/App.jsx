@@ -7,8 +7,10 @@ import { SearchPage } from './pages/SearchPage';
 import { AboutPage } from './pages/AboutPage';
 import { PropertyDetailModal } from './components/PropertyDetailModal';
 import { ScheduleModal } from './components/ScheduleModal';
+import { useScrollReveal } from './hooks/useScrollReveal';
 
 export function App() {
+  useScrollReveal();
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [contactSubject, setContactSubject] = useState('Private Advisory Consultation');

@@ -19,14 +19,14 @@ export function Testimonials() {
     <section id="testimonials" className="section">
       <div className="container">
         {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 48px auto' }}>
+        <div className="reveal-up" style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 48px auto' }}>
           <h2 className="section-title">
             Don’t Take <span className="em">Our Word for It.</span>
           </h2>
         </div>
 
         {/* 2-Column Split matching FIND style */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px', alignItems: 'center' }}>
+        <div className="reveal-up" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px', alignItems: 'center' }}>
           {/* Left: Interactive Quote Box */}
           <div className="testimonial-box">
             <div style={{ display: 'flex', gap: '4px', marginBottom: '20px' }}>

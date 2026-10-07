@@ -29,7 +29,7 @@ export function RewiredProcess() {
       <div className="container">
         <div className="rewired-grid">
           {/* Left Column */}
-          <div>
+          <div className="reveal-up">
             <h2 className="rewired-title">
               Real Estate, <span className="em">Rewired.</span>
             </h2>
@@ -46,12 +46,16 @@ export function RewiredProcess() {
 
           {/* Right Column Steps */}
           <div className="rewired-steps">
-            <div style={{ fontSize: '0.875rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#737373', marginBottom: '8px' }}>
+            <div className="reveal-up" style={{ fontSize: '0.875rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.06em', color: '#737373', marginBottom: '8px' }}>
               The VK 3-Step Protocol:
             </div>
 
-            {steps.map((step) => (
-              <div key={step.num} className="step-card">
+            {steps.map((step, index) => (
+              <div 
+                key={step.num} 
+                className="step-card reveal-up"
+                style={{ transitionDelay: `${(index + 1) * 0.15}s` }}
+              >
                 <div className="step-num">{step.num}</div>
                 <div className="step-content">
                   <h4>{step.title}</h4>

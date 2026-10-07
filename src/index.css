@@ -471,7 +471,7 @@ img {
   position: relative;
   z-index: 10;
   text-align: center;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   margin-bottom: clamp(14px, 2.5vh, 24px);
@@ -480,18 +480,26 @@ img {
 
 .hero-main-title {
   font-family: var(--font-sans);
-  font-size: clamp(3rem, 6.5vw, 5.25rem);
+  font-size: clamp(2.35rem, 5.2vw, 4.4rem);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
   color: #0a0a0a;
   margin-bottom: 14px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28em;
+  flex-wrap: nowrap;
 }
 
 .hero-dynamic-word {
   display: inline-block;
   color: #0a0a0a;
-  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+  white-space: nowrap;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+  will-change: transform, opacity;
 }
 
 .hero-dynamic-word.fade-in {
@@ -502,7 +510,7 @@ img {
 
 .hero-dynamic-word.fade-out {
   opacity: 0;
-  transform: translateY(-12px);
+  transform: translateY(-16px);
   filter: blur(4px);
 }
 
@@ -1849,5 +1857,220 @@ img {
 
   .footer-top {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Global Scroll Reveal & Motion Animation System
+   ========================================================================== */
+.reveal-up,
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-up.is-visible,
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.95) translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-fade.is-visible {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Micro-Animations & Interactive Dynamics
+   ========================================================================== */
+
+/* Button Hover Sheen & Lift */
+.btn-pill {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.btn-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-pill:active {
+  transform: scale(0.97) translateY(0);
+}
+
+.btn-pill-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
+}
+
+.btn-pill-primary:hover::after {
+  left: 180%;
+}
+
+.btn-icon-slide svg {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-icon-slide:hover svg {
+  transform: translateX(4px);
+}
+
+/* Property Card & Image Dynamics */
+.property-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.property-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.property-card:hover .property-media img {
+  transform: scale(1.07);
+}
+
+/* Arrow Cards & Neighborhood Cards */
+.arrow-card {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arrow-card:hover {
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.25);
+}
+
+.arrow-card img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arrow-card:hover img {
+  transform: scale(1.08);
+}
+
+.neighborhood-card {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.neighborhood-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.22);
+}
+
+.neighborhood-card img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.neighborhood-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Step Card Protocol Hover */
+.step-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease, background-color 0.35s ease;
+}
+
+.step-card:hover {
+  transform: translateX(8px);
+  border-color: #0a0a0a;
+  background-color: #ffffff;
+  box-shadow: 0 14px 36px -10px rgba(0, 0, 0, 0.09);
+}
+
+.step-card:hover .step-num {
+  background-color: #0a0a0a;
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.step-num {
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+/* RERA Badge Pulse Glow */
+@keyframes reraPulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+}
+
+.badge-rera {
+  animation: reraPulseGlow 3.2s infinite ease-in-out;
+}
+
+/* Heart Pop Favorite */
+.property-fav-btn {
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease;
+}
+
+.property-fav-btn:hover {
+  transform: scale(1.15);
+}
+
+.property-fav-btn:active {
+  transform: scale(0.9);
+}
+
+.property-fav-btn.favorited {
+  animation: heartPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+/* Outro CTA Background Ken Burns */
+@keyframes outroZoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+.outro-bg img {
+  animation: outroZoom 24s ease-in-out infinite alternate;
+}
+
+/* Mobile Hero Title Responsive Rules */
+@media (max-width: 680px) {
+  .hero-main-title {
+    font-size: clamp(1.75rem, 6.5vw, 2.35rem);
+    white-space: normal;
+    flex-wrap: wrap;
   }
 }

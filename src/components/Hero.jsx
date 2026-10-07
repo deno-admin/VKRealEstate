@@ -5,11 +5,20 @@ import houseHeroImg from '../assets/house-hero.png';
 import cloudImg from '../assets/cloud.webp';
 
 const ROTATING_WORDS = [
+  "Dream House",
   "Sanctuary",
-  "Coastal Villa",
-  "Sky Penthouse",
-  "Tea Estate",
-  "Legacy"
+  "Villa",
+  "Penthouse",
+  "Dream Home",
+  "Estate",
+  "Haven",
+  "Paradise",
+  "Retreat",
+  "Manor",
+  "Legacy",
+  "Oasis",
+  "Residence",
+  "Horizon"
 ];
 
 export function Hero() {
@@ -22,8 +31,8 @@ export function Hero() {
       setTimeout(() => {
         setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
         setFadeState('fade-in');
-      }, 350);
-    }, 3200);
+      }, 300);
+    }, 2800);
 
     return () => clearInterval(interval);
   }, []);

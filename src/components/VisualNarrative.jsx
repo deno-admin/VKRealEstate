@@ -40,7 +40,7 @@ export function VisualNarrative({ onSelectLocality }) {
     <section className="section section-secondary">
       <div className="container">
         {/* Header */}
-        <div className="visual-narrative-header">
+        <div className="visual-narrative-header reveal-up">
           <h2 className="visual-narrative-title">
             This isn’t just <span className="em">about real estate.</span>
           </h2>
@@ -48,10 +48,11 @@ export function VisualNarrative({ onSelectLocality }) {
 
         {/* 4 Cards Grid */}
         <div className="arrows-grid">
-          {narrativeCards.map((card) => (
+          {narrativeCards.map((card, index) => (
             <div 
               key={card.id} 
-              className="arrow-card"
+              className="arrow-card reveal-up"
+              style={{ transitionDelay: `${index * 0.12}s` }}
               onClick={() => {
                 onSelectLocality(card.localityFilter);
                 const target = document.getElementById('properties');
@@ -69,7 +70,7 @@ export function VisualNarrative({ onSelectLocality }) {
         </div>
 
         {/* Editorial Footnote */}
-        <div className="visual-narrative-caption">
+        <div className="visual-narrative-caption reveal-up" style={{ transitionDelay: '0.4s' }}>
           <p>
             It’s about identity. Heritage. Progress. You’re not just looking for a place. <span className="em">You’re looking for alignment. That’s what we help you find across Tamil Nadu.</span>
           </p>

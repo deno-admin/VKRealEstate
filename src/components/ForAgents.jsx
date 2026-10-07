@@ -7,7 +7,7 @@ export function ForAgents({ onJoinMovement }) {
       <div className="container">
         <div className="for-agents-grid">
           {/* Left Images Layout */}
-          <div className="for-agents-images">
+          <div className="for-agents-images reveal-scale">
             <div className="agent-img-box">
               <img 
                 src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" 
@@ -25,7 +25,7 @@ export function ForAgents({ onJoinMovement }) {
           </div>
 
           {/* Right Content */}
-          <div className="for-agents-content">
+          <div className="for-agents-content reveal-up">
             <span className="section-badge">For Real Estate Leaders & Brokers</span>
             <h2>
               Don’t Rent Your Career. <span className="em">Own It.</span>

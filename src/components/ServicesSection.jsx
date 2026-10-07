@@ -7,7 +7,7 @@ export function ServicesSection({ onOpenContact }) {
     <section id="services" className="section section-dark">
       <div className="container">
         {/* Section Header */}
-        <div style={{ maxWidth: '800px', marginBottom: '48px' }}>
+        <div className="reveal-up" style={{ maxWidth: '800px', marginBottom: '48px' }}>
           <span className="section-badge" style={{ color: '#c5a059' }}>Full Spectrum Advisory</span>
           <h2 className="section-title" style={{ color: '#ffffff' }}>
             How VK Real Estate <span className="em">Can Help You</span>
@@ -19,10 +19,11 @@ export function ServicesSection({ onOpenContact }) {
 
         {/* 3 Interactive Service Cards */}
         <div className="services-container" style={{ marginBottom: '80px' }}>
-          {SERVICES.map(service => (
+          {SERVICES.map((service, index) => (
             <div 
               key={service.id} 
-              className="service-card"
+              className="service-card reveal-up"
+              style={{ transitionDelay: `${index * 0.15}s` }}
               onClick={() => onOpenContact(`Service Inquiry: ${service.action}`)}
             >
               {/* Background Image on Hover */}
@@ -69,16 +70,18 @@ export function ServicesSection({ onOpenContact }) {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
-            {SUPPORT_SERVICES.map(sup => (
+            {SUPPORT_SERVICES.map((sup, idx) => (
               <div 
                 key={sup.id}
+                className="reveal-up"
                 style={{
                   backgroundColor: '#161616',
                   borderRadius: '20px',
                   overflow: 'hidden',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
                   display: 'flex',
-                  flexDirection: 'column'
+                  flexDirection: 'column',
+                  transitionDelay: `${idx * 0.12}s`
                 }}
               >
                 <div style={{ height: '200px', overflow: 'hidden' }}>

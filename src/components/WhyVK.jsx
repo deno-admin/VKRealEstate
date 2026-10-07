@@ -4,7 +4,7 @@ export function WhyVK() {
   return (
     <section id="why-vk" className="section">
       <div className="container">
-        <div className="why-vk-grid">
+        <div className="why-vk-grid reveal-up">
           {/* Left Column */}
           <div className="why-vk-label">
             Why VK
@@ -17,7 +17,7 @@ export function WhyVK() {
             </h2>
 
             {/* Architectural Showcase Banner Placeholder */}
-            <div className="why-vk-media-banner">
+            <div className="why-vk-media-banner reveal-scale">
               <img 
                 src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1600&q=80" 
                 alt="Tamil Nadu Luxury Living" 
