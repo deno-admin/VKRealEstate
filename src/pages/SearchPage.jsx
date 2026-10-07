@@ -68,9 +68,9 @@ export function SearchPage({ onSelectProperty }) {
   }, [selectedLocality, selectedType, selectedBHK, maxPrice, searchQuery, sortBy]);
 
   return (
-    <div className="search-page" style={{ paddingTop: '100px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
+    <div className="search-page" style={{ paddingTop: '120px', minHeight: '100vh', backgroundColor: '#fafafa' }}>
       {/* Search Page Header */}
-      <section style={{ backgroundColor: '#ffffff', borderBottom: '1px solid var(--border-light)', padding: '40px 0 30px 0' }}>
+      <section style={{ backgroundColor: '#ffffff', borderBottom: '1px solid var(--border-light)', padding: '36px 0 32px 0' }}>
         <div className="container">
           <div style={{ maxWidth: '800px', marginBottom: '24px' }}>
             <span className="section-badge">Properties in Tamil Nadu</span>
@@ -89,9 +89,10 @@ export function SearchPage({ onSelectProperty }) {
             backgroundColor: '#f8f9fa',
             border: '1px solid var(--border-medium)',
             borderRadius: '9999px',
-            padding: '10px 20px',
+            padding: '12px 24px',
             gap: '12px',
-            maxWidth: '850px'
+            maxWidth: '850px',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
           }}>
             <Search size={20} color="#0a0a0a" />
             <input 
@@ -110,7 +111,7 @@ export function SearchPage({ onSelectProperty }) {
               }}
             />
             {searchQuery && (
-              <button onClick={() => setSearchQuery('')} style={{ color: '#737373', fontSize: '0.875rem' }}>
+              <button onClick={() => setSearchQuery('')} style={{ color: '#737373', fontSize: '0.875rem', fontWeight: '600' }}>
                 Clear
               </button>
             )}
@@ -244,14 +245,18 @@ export function SearchPage({ onSelectProperty }) {
                     className="property-card"
                     onClick={() => onSelectProperty(property)}
                   >
-                    <div className="property-card-image-wrap">
+                    {/* Property Media */}
+                    <div className="property-media">
                       <img src={property.heroImage} alt={property.title} loading="lazy" />
                       
-                      <div className="property-badges">
-                        <span className="badge badge-dark">{property.badge}</span>
-                        {property.tnreraVerified && (
-                          <span className="badge badge-tnrera">
-                            <ShieldCheck size={12} /> TNRERA
+                      <div className="property-badges-top">
+                        {property.tag && (
+                          <span className="badge badge-dark">{property.tag}</span>
+                        )}
+                        {property.reraId && (
+                          <span className="badge badge-rera">
+                            <ShieldCheck size={12} />
+                            TNRERA
                           </span>
                         )}
                       </div>
@@ -265,16 +270,17 @@ export function SearchPage({ onSelectProperty }) {
                       </button>
                     </div>
 
-                    <div className="property-card-body">
-                      <div className="property-card-price-row">
-                        <span className="property-card-price">{property.priceFormatted}</span>
-                      </div>
-                      <h3 className="property-card-title">{property.title}</h3>
-                      <div className="property-card-location">
-                        {property.locality}, {property.city}
+                    {/* Property Info */}
+                    <div className="property-info">
+                      <div className="property-price">{property.priceFormatted}</div>
+                      <h3 className="property-title">{property.title}</h3>
+                      <div className="property-location">
+                        <MapPin size={14} />
+                        <span>{property.locality}, {property.city}</span>
                       </div>
 
-                      <div className="property-card-specs">
+                      {/* Specs Row */}
+                      <div className="property-specs">
                         <div className="spec-item">
                           <Bed size={15} />
                           <span>{property.bhk} Beds</span>

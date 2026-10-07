@@ -373,6 +373,7 @@ img {
   background: radial-gradient(ellipse 65% 55% at 0% 38%, rgba(255, 192, 140, 0.75) 0%, rgba(255, 222, 188, 0.35) 45%, rgba(255, 255, 255, 0) 80%);
   pointer-events: none;
   z-index: 1;
+  animation: sunGlowPulse 8s ease-in-out infinite alternate;
 }
 
 .hero-sky-cloud {
@@ -433,6 +434,39 @@ img {
   100% { transform: translate(25px, -12px); }
 }
 
+@keyframes sunGlowPulse {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes heroTextFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroHouseFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .hero-text-container {
   position: relative;
   z-index: 10;
@@ -441,6 +475,7 @@ img {
   margin: 0 auto;
   padding: 0 20px;
   margin-bottom: clamp(14px, 2.5vh, 24px);
+  animation: heroTextFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .hero-main-title {
@@ -451,6 +486,24 @@ img {
   line-height: 1.05;
   color: #0a0a0a;
   margin-bottom: 14px;
+}
+
+.hero-dynamic-word {
+  display: inline-block;
+  color: #0a0a0a;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+}
+
+.hero-dynamic-word.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.hero-dynamic-word.fade-out {
+  opacity: 0;
+  transform: translateY(-12px);
+  filter: blur(4px);
 }
 
 .hero-main-subtitle {
@@ -492,6 +545,7 @@ img {
   pointer-events: none;
   padding: 0;
   overflow: hidden;
+  animation: heroHouseFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 
 .hero-house-img-wrap {

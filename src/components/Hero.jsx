@@ -1,13 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import houseHeroImg from '../assets/house-hero.png';
 import cloudImg from '../assets/cloud.webp';
 
+const ROTATING_WORDS = [
+  "Sanctuary",
+  "Coastal Villa",
+  "Sky Penthouse",
+  "Tea Estate",
+  "Legacy"
+];
+
 export function Hero() {
+  const [wordIndex, setWordIndex] = useState(0);
+  const [fadeState, setFadeState] = useState('fade-in');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFadeState('fade-out');
+      setTimeout(() => {
+        setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
+        setFadeState('fade-in');
+      }, 350);
+    }, 3200);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id="hero" className="hero-root">
-      {/* Sky & Lighting Background */}
+      {/* Sky & Lighting Background with Ambient Radiance */}
       <div className="hero-sky-backdrop">
         <div className="hero-sun-glow"></div>
         
@@ -26,11 +49,11 @@ export function Hero() {
       {/* Hero Typography & CTA Content */}
       <div className="hero-text-container">
         <h1 className="hero-main-title">
-          Find What Moves You
+          Find Your <span className={`hero-dynamic-word ${fadeState}`}>{ROTATING_WORDS[wordIndex]}</span>
         </h1>
 
         <p className="hero-main-subtitle">
-          Expert agents. Real guidance. <span className="em">A clear path to find what’s next.</span>
+          Expert agents. Real guidance. <span className="em">A clear path to Tamil Nadu’s finest estates.</span>
         </p>
 
         <div className="hero-cta-wrapper">
@@ -38,7 +61,7 @@ export function Hero() {
             to="/search"
             className="btn-pill btn-pill-primary btn-icon-slide hero-find-btn"
           >
-            <span>Find Properties</span>
+            <span>Explore Properties</span>
             <ArrowRight size={16} />
           </Link>
         </div>
